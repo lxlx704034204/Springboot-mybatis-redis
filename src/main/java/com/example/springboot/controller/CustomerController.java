@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springboot.entity.*;
-import com.exmple.springboot.service.CustomersService;
+import com.example.springboot.service.CustomersService;
 
 @RestController
 @RequestMapping("/Customers")

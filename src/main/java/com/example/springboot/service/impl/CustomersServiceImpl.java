@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.springboot.dao.CustomersMapper;
 import com.example.springboot.entity.Customers;
 import com.example.springboot.entity.CustomersExample;
-import com.exmple.springboot.service.CustomersService;
+import com.example.springboot.service.CustomersService;
 
 @Service("CustomersService")
 public class CustomersServiceImpl implements CustomersService {
