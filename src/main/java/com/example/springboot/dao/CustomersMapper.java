@@ -21,11 +21,10 @@ public interface CustomersMapper {
     int insert(Customers record);
 
     int insertSelective(Customers record);
-
+    
     @Cacheable( keyGenerator = "keyGenerator") 
     List<Customers> selectByExample(CustomersExample example);
 
-    @Cacheable( keyGenerator = "keyGenerator") 
     Customers selectByPrimaryKey(String customerid);
 
     int updateByExampleSelective(@Param("record") Customers record, @Param("example") CustomersExample example);

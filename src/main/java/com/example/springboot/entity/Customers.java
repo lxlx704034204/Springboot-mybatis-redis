@@ -1,14 +1,7 @@
 package com.example.springboot.entity;
 
-import java.io.Serializable;
-
-public class Customers implements Serializable{
-    /** 
-	* @Fields serialVersionUID : TODO
-	*/ 
-	private static final long serialVersionUID = 1L;
-
-	private String customerid;
+public class Customers {
+    private String customerid;
 
     private String companyname;
 

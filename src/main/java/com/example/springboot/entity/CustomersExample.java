@@ -1,16 +1,10 @@
 package com.example.springboot.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomersExample implements Serializable{
-    /** 
-	* @Fields serialVersionUID : TODO
-	*/ 
-	private static final long serialVersionUID = 1L;
-
-	protected String orderByClause;
+public class CustomersExample {
+    protected String orderByClause;
 
     protected boolean distinct;
 
@@ -972,5 +966,26 @@ public class CustomersExample implements Serializable{
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
         }
+
+		@Override
+		public String toString() {
+			return "Criterion [condition=" + condition + ", value=" + value + ", secondValue=" + secondValue + ", noValue=" + noValue + ", singleValue=" + singleValue + ", betweenValue="
+					+ betweenValue + ", listValue=" + listValue + ", typeHandler=" + typeHandler + "]";
+		}
+       
+		
     }
+
+	@Override
+	public String toString() {
+		String result = "";
+		for (Criteria criteria: this.getOredCriteria()){
+			for (Criterion criterion:criteria.getCriteria()){
+				result += criterion;				
+			}
+		}
+		return "CustomersExample ["+result+"]";
+	}
+    
+    
 }
