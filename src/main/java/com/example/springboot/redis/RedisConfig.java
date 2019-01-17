@@ -25,6 +25,16 @@ import redis.clients.jedis.JedisPoolConfig;
  * Redis缓存配置类
  * @author szekinwin
  *
+ * RedisConfig  --->  JedisPoolConfig  <--- applicationContext-redis.xml
+ *
+ * applicationContext-redis.xml（spring整合redis集群） : https://www.cnblogs.com/northern-light/p/8540309.html
+ *
+ * SpringBoot整合 redis(各种模式)： https://blog.csdn.net/plei_yue/article/details/79362372
+ *
+ * 不错的配置博客：
+ * 	http://www.cnblogs.com/ashleyboy/p/9595584.html
+ *	https://blog.csdn.net/g1506490083/article/details/79436711  锁控制
+ *
  */
 @Configuration
 @EnableCaching
@@ -97,7 +107,9 @@ public class RedisConfig extends CachingConfigurerSupport{
 	 * 自定义key生成策略
 	 * 类名+方法名+参数(适用于分布式缓存)，默认key生成策略分布式下有可能重复被覆盖
 	 * @return
+	 * 详细配置： https://blog.csdn.net/litte_frog/article/details/79468270
 	 */
+	@Override
 	@Bean
 	public KeyGenerator keyGenerator() {
 		return (o, method, objects) -> {
