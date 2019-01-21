@@ -23,11 +23,16 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private int age;
 
     private String name;
+
+
+//    @Column(columnDefinition = "TIMESTAMP")  //数据库手动新增一条数据的时候 会自动新增“CURRENT_TIMESTAMP”
+//    private Date createTime;
 
 //    public List<User> userlist;
 

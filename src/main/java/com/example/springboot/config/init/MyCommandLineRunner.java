@@ -2,6 +2,7 @@ package com.example.springboot.config.init;
 
 import com.example.springboot.entity.User;
 import com.example.springboot.service.UserService;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class MyCommandLineRunner implements CommandLineRunner {
+public class MyCommandLineRunner implements  CommandLineRunner { //InitializingBean
 
     @Autowired
     UserService userService;

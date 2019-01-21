@@ -17,12 +17,13 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 
 /**
- * Redis缓存配置类
+ * Redis缓存配置类   [去xml版本：  https://github.com/lxlx704034204/farm-service   pom: 1.5.10]
  * @author szekinwin
  *
  * RedisConfig  --->  JedisPoolConfig  <--- applicationContext-redis.xml
@@ -88,17 +89,27 @@ public class RedisConfig extends CachingConfigurerSupport{
 	 * 自己的缓存类，比如：RedisStorage类;
 	 * @param redisConnectionFactory : 通过Spring进行注入，参数在application.properties进行配置；
 	 * @return
+	 *
+	 *  重写Redis序列化方式，使用Json方式:
+	 * 	当我们的数据存储到Redis的时候，我们的键（key）和值（value）都是通过Spring提供的Serializer序列化到数据库的。RedisTemplate默认使用的
+	 * 	是JdkSerializationRedisSerializer，StringRedisTemplate默认使用的是StringRedisSerializer。
+	 * 	Spring Data JPA为我们提供了下面的Serializer：
+	 * 	GenericToStringSerializer、Jackson2JsonRedisSerializer、JacksonJsonRedisSerializer、JdkSerializationRedisSerializer、OxmSerializer、StringRedisSerializer。
+	 *
 	 */
 	@Bean
 	public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 		StringRedisTemplate template = new StringRedisTemplate(redisConnectionFactory);
-		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = 
+		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer =
 				new Jackson2JsonRedisSerializer(Object.class);
 		ObjectMapper om = new ObjectMapper();
 		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
 		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
 		jackson2JsonRedisSerializer.setObjectMapper(om);
+		// 设置值（value）的序列化采用Jackson2JsonRedisSerializer
 		template.setValueSerializer(jackson2JsonRedisSerializer);
+		// 设置键（key）的序列化采用StringRedisSerializer。
+		template.setKeySerializer(new StringRedisSerializer());
 		template.afterPropertiesSet();
 		return template;
 	}
@@ -113,7 +124,7 @@ public class RedisConfig extends CachingConfigurerSupport{
 	@Bean
 	public KeyGenerator keyGenerator() {
 		return (o, method, objects) -> {
-			StringBuilder sb = new StringBuilder();			
+			StringBuilder sb = new StringBuilder();
 			sb.append(method.getName() + "(");
 			for (Object obj : objects) {
 				sb.append(obj.toString());
