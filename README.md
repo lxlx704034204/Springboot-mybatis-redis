@@ -1,6 +1,7 @@
 # Springboot-mybatis-redis
 
 当前为springboot redis缓存  xml版本；[去xml版本：  https://github.com/lxlx704034204/farm-service   pom: 1.5.10]
+userMapper.xml: 怎删改查 缓存测试实例
 
 主要参照：
 http://url.cn/5efBNwk (redis xml配置)

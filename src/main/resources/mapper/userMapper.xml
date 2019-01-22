@@ -59,7 +59,7 @@
     <update id="update" parameterType="com.example.springboot.entity.User">
         update user
         <trim prefix="set" suffix=" " suffixOverrides="," >
-        <if test="voucher.name != null and voucher.name.length()>0">
+            <if test="voucher.name != null and voucher.name.length()>0">
                 name=#{voucher.name} ,
             </if>
             <if test="voucher.age != null">
